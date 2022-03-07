@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers</title>
+    <style>
+        .main-div {
+            width: 960px;
+            height: 100%;
+            background-color: #f1f0f0;
+        }
+
+        .card {
+            display: inline-block;
+            height: 250px;
+            width: 250px;
+            color: white;
+            font-size: 150px;
+            text-align: center;
+        }
+
+        .section1 {
+            display: inline-block;
+            width: 80%;
+        }
+
+        .section2 {
+            background-color: #FFFFFF;
+            display: inline-block;
+            position: absolute;
+            top: 25px;
+        }
+
+        button {
+            background-color: #2B8EAD;
+            width: 150px;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            margin: 5px;
+        }
+
+        .button2 {
+            margin: 5px;
+        }
+
+        .section3 {
+            display: inline-block;
+            margin: 2% 30%;
+        }
+
+        @media only screen and (max-width: 959px) {
+            .section1 {
+                position: absolute;
+                top: 13%;
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
+
+            .main-div {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                background-color: white;
+            }
+
+            .card {
+                height: 40px;
+                width: 100%;
+                color: black;
+                font-size: 30px;
+                text-align: center;
+                margin: 2px;
+            }
+
+            .section2 {
+                display: flex;
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
+
+            .section3 {
+                position: absolute;
+                /* bottom: 1%; */
+                top: 65%;
+                margin: 0;
+                left: 50%;
+                transform: translate(-50%, 0);
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-div">
+        <!-- <div class="mweb-section">
+            Shuffle and Sort
+        </div> -->
+        <div class="section1" id="card">
+        </div>
+        <div class="section2">
+            <div class="button1">
+                <button onclick="getshuffle()">Shuffle</button>
+            </div>
+            <div class="button2">
+                <button onclick="getsort()">Sort</button>
+            </div>
+        </div>
+        <div class="section3">
+            Shuffle and Sort By Chetan Suryavanshi
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        let numbersArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        //let colors = ['#000000','#333333','#FFFFFF', '#EFEFEF', '#72C3DC', '#2B8EAD', '#6F98A8', '#BFBFBF', '#2F454E']
+        let colors = ['#6F98A8', '#2B8EAD', '#000000', '#2B8EAD', '#000000', '#BFBFBF', '#BFBFBF', '#6F98A8', '#000000']
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+        }
+        function getsort() {
+            console.log('getsort')
+            let newnumbersArr = []
+            newnumbersArr = numbersArr.sort(function (a, b) { return a - b });
+            mainFunction(newnumbersArr, colors)
+        }
+        function getshuffle() {
+            console.log('getshuffle')
+            let newnumbersArr = []
+            newnumbersArr = shuffle(numbersArr)
+            mainFunction(newnumbersArr, colors)
+        }
+
+        function mainFunction(numbersArr1, colors1) {
+            let numbers = "";
+            document.getElementById("card").innerHTML = '';
+            var toAdd = document.createDocumentFragment();
+            for (var i = 1; i <= numbersArr.length; i++) {
+                var newDiv = document.createElement('div');
+                newDiv.id = 'card' + i;
+                newDiv.className = 'card'
+                newDiv.style['background-color'] = colors1[i - 1]
+                newDiv.innerHTML = numbersArr[i - 1];
+                if (screen.width <= 768) {
+                    //newDiv.style['background'] = `linear-gradient(110deg, ${colors1[i - 1]} 20%, #ffed4b 80%)`
+                    newDiv.style['background'] = `linear-gradient( to right, ${colors1[i - 1]} 0%, ${colors1[i - 1]} 5%, #f1f0f0 0%, #f1f0f0 100% )`
+                }
+                toAdd.appendChild(newDiv);
+            }
+
+            // document.appendChild(toAdd);
+            document.getElementById('card').appendChild(toAdd);
+        }
+        mainFunction(numbersArr, colors)
+
+       // document.getElementById("card").innerHTML = numbers;
+    </script>
+</body>
+
+</html>
